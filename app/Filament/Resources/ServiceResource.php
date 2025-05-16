@@ -32,6 +32,7 @@ class ServiceResource extends Resource
                     ->label('Service Image')
                     ->image()
                     ->directory('services')
+                    ->disk('public')
                     ->nullable(),
                 TextInput::make('name')
                     ->required()
@@ -57,11 +58,19 @@ class ServiceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-                ImageColumn::make('image')->label('Image')->rounded(),
-                Tables\Columns\TextColumn::make('price')->money('idr', true),
-                Tables\Columns\TextColumn::make('duration')->label('Duration (minutes)'),
-                Tables\Columns\TextColumn::make('event_date')->date(),
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+                ImageColumn::make('image')
+                    ->label('Image')
+                    ->disk('public'),
+                Tables\Columns\TextColumn::make('price')
+                    ->money('idr', true),
+                Tables\Columns\TextColumn::make('duration')
+                    ->label('Duration (minutes)'),
+                Tables\Columns\TextColumn::make('event_date')
+                    ->sortable()
+                    ->date(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d M Y'),
             ])
