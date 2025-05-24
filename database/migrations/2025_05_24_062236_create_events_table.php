@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('description');
             $table->foreignId('author_id')->constrained('users');
             $table->enum('status', ['available', 'unavailable']);
+            $table->text('address');
             $table->date('event_date');
             $table->string('slug');
             $table->date('created_at');
