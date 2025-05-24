@@ -65,6 +65,9 @@
     <!-- Form Content -->
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+            @csrf
+
+            <input type="hidden" name="author_id" value="1">
             <!-- Basic Information -->
             <div class="bg-white rounded-xl p-8 shadow-sm">
                 <h2 class="text-xl font-semibold text-gray-900 mb-6">Informasi Dasar</h2>
@@ -102,7 +105,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Waktu Mulai *</label>
-                        <input name="event-time" type="time" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        <input name="event_time" type="time" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
                     </div>
                 </div>
             </div>
@@ -244,56 +247,56 @@
         </div>
     </div>
 
-<script>
-    const form = document.querySelector('form');
-    const modal = document.getElementById('changeModal');
-    const cancelBtn = document.getElementById('cancelChange');
-    const confirmBtn = modal.querySelector('button.bg-primary');
+    <script>
+        const form = document.querySelector('form');
+        const modal = document.getElementById('changeModal');
+        const cancelBtn = document.getElementById('cancelChange');
+        const confirmBtn = modal.querySelector('button.bg-primary');
 
-    let formShouldSubmit = false;
+        let formShouldSubmit = false;
 
-    form.addEventListener('submit', function(e) {
-        if (!formShouldSubmit) {
-            e.preventDefault(); // Tahan submit pertama kali
-            modal.classList.remove('hidden'); // Tampilkan modal
-        }
-    });
-
-    cancelBtn.addEventListener('click', function() {
-        modal.classList.add('hidden');
-    });
-
-    confirmBtn.addEventListener('click', function() {
-        formShouldSubmit = true;
-        modal.classList.add('hidden');
-        form.submit(); // Submit form setelah konfirmasi
-    });
-
-    // File upload drag & drop
-    document.querySelectorAll('[type="file"]').forEach(input => {
-        const container = input.closest('div');
-        
-        container.addEventListener('click', () => {
-            input.click();
+        form.addEventListener('submit', function(e) {
+            if (!formShouldSubmit) {
+                e.preventDefault(); // Tahan submit pertama kali
+                modal.classList.remove('hidden'); // Tampilkan modal
+            }
         });
-        
-        container.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            container.classList.add('border-primary', 'bg-blue-50');
+
+        cancelBtn.addEventListener('click', function() {
+            modal.classList.add('hidden');
         });
-        
-        container.addEventListener('dragleave', () => {
-            container.classList.remove('border-primary', 'bg-blue-50');
+
+        confirmBtn.addEventListener('click', function() {
+            formShouldSubmit = true;
+            modal.classList.add('hidden');
+            form.submit(); // Submit form setelah konfirmasi
         });
-        
-        container.addEventListener('drop', (e) => {
-            e.preventDefault();
-            container.classList.remove('border-primary', 'bg-blue-50');
-            const files = e.dataTransfer.files;
-            input.files = files;
+
+        // File upload drag & drop
+        document.querySelectorAll('[type="file"]').forEach(input => {
+            const container = input.closest('div');
+
+            container.addEventListener('click', () => {
+                input.click();
+            });
+
+            container.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                container.classList.add('border-primary', 'bg-blue-50');
+            });
+
+            container.addEventListener('dragleave', () => {
+                container.classList.remove('border-primary', 'bg-blue-50');
+            });
+
+            container.addEventListener('drop', (e) => {
+                e.preventDefault();
+                container.classList.remove('border-primary', 'bg-blue-50');
+                const files = e.dataTransfer.files;
+                input.files = files;
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 </html>

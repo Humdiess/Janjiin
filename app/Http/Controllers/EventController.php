@@ -93,7 +93,7 @@ class EventController extends Controller
             'created_at' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Event berhasil disimpan!');
+        return view('event.index')->with('success', 'Event berhasil disimpan!');
     }
 
     /**
