@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -34,30 +35,56 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        $validated = $request->validate([
+        // Validasi data
+        $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'required|string|max:255', // asumsi path/url gambar
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'description' => 'required|string',
-            'author_id' => 'required|exists:users,id',
-            'status' => 'required|in:available,unavailable',
-            'address' => 'required|string',
+            'author_id' => 'required|integer|exists:users,id',
+            'status' => 'required|in:available,draft,cancelled',
+            'address' => 'nullable|string|max:255',
             'city' => 'required|string|max:100',
             'event_date' => 'required|date',
-            'event_time' => 'required|date_format:H:i',
-            'event_type' => 'required|in:workshop,zoom_meeting,seminar,webinar',
+            'event_time' => 'required',
+            'event_type' => 'required|string|max:50',
             'price' => 'required|numeric|min:0',
-            'participant_limit' => 'required|integer|min:1',
-            'slug' => 'required|string|unique:events,slug',
+            'participant_limit' => 'required|integer|min:0',
         ]);
-    
+
+        // Simpan gambar jika ada
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('events', 'public');
+        }
+
+        // Buat slug unik dari judul
+        $slug = Str::slug($request->title);
+        $existingCount = Event::where('slug', $slug)->count();
+        if ($existingCount > 0) {
+            $slug .= '-' . ($existingCount + 1);
+        }
+
+        // Simpan data ke database
         $event = Event::create([
-            ...$validated,
+            'title' => $request->title,
+            'image' => $imagePath,
+            'description' => $request->description,
+            'author_id' => $request->author_id,
+            'status' => $request->status,
+            'address' => $request->address,
+            'city' => $request->city,
+            'event_date' => $request->event_date,
+            'event_time' => $request->event_time,
+            'event_type' => $request->event_type,
+            'price' => $request->price,
+            'participant_limit' => $request->participant_limit,
             'participant_count' => 0,
-            'total_revenue' => 0, // boleh dihapus jika kamu pakai accessor
+            'total_revenue' => 0,
+            'slug' => $slug,
+            'created_at' => now(),
         ]);
-    
-        // Redirect to the event index page after successful creation
-        return redirect()->route('event.index')->with('success', 'Event created successfully.');
+
+        return redirect()->back()->with('success', 'Event berhasil disimpan!');
     }
 
     /**
