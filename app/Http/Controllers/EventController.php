@@ -34,7 +34,30 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'image' => 'required|string|max:255', // asumsi path/url gambar
+            'description' => 'required|string',
+            'author_id' => 'required|exists:users,id',
+            'status' => 'required|in:available,unavailable',
+            'address' => 'required|string',
+            'city' => 'required|string|max:100',
+            'event_date' => 'required|date',
+            'event_time' => 'required|date_format:H:i',
+            'event_type' => 'required|in:workshop,zoom_meeting,seminar,webinar',
+            'price' => 'required|numeric|min:0',
+            'participant_limit' => 'required|integer|min:1',
+            'slug' => 'required|string|unique:events,slug',
+        ]);
+    
+        $event = Event::create([
+            ...$validated,
+            'participant_count' => 0,
+            'total_revenue' => 0, // boleh dihapus jika kamu pakai accessor
+        ]);
+    
+        // Redirect to the event index page after successful creation
+        return redirect()->route('event.index')->with('success', 'Event created successfully.');
     }
 
     /**
