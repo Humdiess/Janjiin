@@ -13,7 +13,10 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('event.index');
+        $events = Event::all();
+        // You can pass the events to the view if needed
+        return view('event.index', compact('events'));
+        // return view('event.index');
     }
 
     /**
@@ -35,9 +38,10 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show($slug)
     {
-        //
+        $event = Event::where('slug', $slug)->firstOrFail();
+        return view('event.show', compact('event'));
     }
 
     /**
