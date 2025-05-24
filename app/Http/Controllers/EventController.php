@@ -24,7 +24,9 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        // This method can be used to show a form for creating a new event
+        return view('event.create');
+        // return view('event.create'); // Assuming you have a create view
     }
 
     /**
@@ -49,7 +51,9 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        // This method can be used to show a form for editing an existing event
+        return view('event.edit', compact('event'));
+        // return view('event.edit'); // Assuming you have an edit view
     }
 
     /**
