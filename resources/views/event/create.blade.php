@@ -64,43 +64,30 @@
 
     <!-- Form Content -->
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <form class="space-y-8">
+        <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
             <!-- Basic Information -->
             <div class="bg-white rounded-xl p-8 shadow-sm">
                 <h2 class="text-xl font-semibold text-gray-900 mb-6">Informasi Dasar</h2>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Nama Event *</label>
-                        <input type="text" name="nama_event" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        <input type="text" name="title" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Kategori *</label>
-                        <select name="kategori" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        <select name="event_type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
                             <option value="">Pilih kategori</option>
-                            <option>Workshop</option>
-                            <option>Seminar</option>
-                            <option>Conference</option>
-                            <option>Meetup</option>
-                            <option>Training</option>
-                            <option>Webinar</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Format Event *</label>
-                        <select name="format" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
-                            <option value="">Pilih format</option>
-                            <option>Offline</option>
-                            <option>Online</option>
-                            <option>Hybrid</option>
+                            <option value="workshop">Workshop</option>
+                            <option value="seminar">Seminar</option>
+                            <option value="conference">Conference</option>
+                            <option value="meetup">Meetup</option>
+                            <option value="training">Training</option>
+                            <option value="webinar">Webinar</option>
                         </select>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Singkat *</label>
-                        <textarea name="deskripsi_singkat" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required></textarea>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Lengkap *</label>
-                        <textarea name="deskripsi_lengkap" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required></textarea>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi*</label>
+                        <textarea name="description" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required></textarea>
                     </div>
                 </div>
             </div>
@@ -111,54 +98,11 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Mulai *</label>
-                        <input type="date" name="tanggal_mulai" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Selesai *</label>
-                        <input type="date" name="tanggal_selesai" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        <input name="event_date" type="date"  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Waktu Mulai *</label>
-                        <input type="time" name="waktu_mulai" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Waktu Selesai *</label>
-                        <input type="time" name="waktu_selesai" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Zona Waktu *</label>
-                        <select name="zona_waktu" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
-                            <option>WIB (UTC+7)</option>
-                            <option>WITA (UTC+8)</option>
-                            <option>WIT (UTC+9)</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Location -->
-            <div class="bg-white rounded-xl p-8 shadow-sm">
-                <h2 class="text-xl font-semibold text-gray-900 mb-6">Lokasi</h2>
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Selesai *</label>
-                        <input type="date" value="2024-01-25" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Waktu Mulai *</label>
-                        <input type="time" value="09:00" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Waktu Selesai *</label>
-                        <input type="time" value="17:00" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Zona Waktu *</label>
-                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                            <option selected>WIB (UTC+7)</option>
-                            <option>WITA (UTC+8)</option>
-                            <option>WIT (UTC+9)</option>
-                        </select>
+                        <input name="event-time" type="time" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
                     </div>
                 </div>
             </div>
@@ -169,17 +113,13 @@
                 <div class="space-y-6">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Venue</label>
-                            <input type="text" value="Jakarta Convention Center" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                        </div>
-                        <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Kota *</label>
-                            <input type="text" value="Jakarta" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input name="city" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
                         </div>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Alamat Lengkap</label>
-                        <textarea rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">Jl. Gatot Subroto, Senayan, Jakarta Pusat 10270</textarea>
+                        <textarea name="address" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
                     </div>
                 </div>
             </div>
@@ -188,36 +128,19 @@
             <div class="bg-white rounded-xl p-8 shadow-sm">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-xl font-semibold text-gray-900">Harga & Kapasitas</h2>
-                    <div class="bg-red-50 border border-red-200 rounded-lg px-3 py-1">
-                        <span class="text-red-700 text-sm">
-                            <i class="fas fa-exclamation-circle mr-1"></i>
-                            Hati-hati mengubah harga
-                        </span>
-                    </div>
                 </div>
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tipe Tiket *</label>
-                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                            <option>Gratis</option>
-                            <option selected>Berbayar</option>
-                        </select>
-                    </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Harga Tiket</label>
                         <div class="relative">
                             <span class="absolute left-3 top-3 text-gray-500">Rp</span>
-                            <input type="number" value="299000" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input name="price" type="number" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
                         </div>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Kapasitas Maksimal *</label>
-                        <input type="number" value="50" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <input name="participant_limit" type="number" value="50" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
                         <p class="text-sm text-gray-500 mt-1">Saat ini: 45 peserta terdaftar</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Batas Pendaftaran</label>
-                        <input type="datetime-local" value="2024-01-24T23:59" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
                     </div>
                 </div>
             </div>
@@ -321,41 +244,56 @@
         </div>
     </div>
 
-    <script>
-        // Show confirmation modal when form is submitted
-        document.querySelector('form').addEventListener('submit', function(e) {
+<script>
+    const form = document.querySelector('form');
+    const modal = document.getElementById('changeModal');
+    const cancelBtn = document.getElementById('cancelChange');
+    const confirmBtn = modal.querySelector('button.bg-primary');
+
+    let formShouldSubmit = false;
+
+    form.addEventListener('submit', function(e) {
+        if (!formShouldSubmit) {
+            e.preventDefault(); // Tahan submit pertama kali
+            modal.classList.remove('hidden'); // Tampilkan modal
+        }
+    });
+
+    cancelBtn.addEventListener('click', function() {
+        modal.classList.add('hidden');
+    });
+
+    confirmBtn.addEventListener('click', function() {
+        formShouldSubmit = true;
+        modal.classList.add('hidden');
+        form.submit(); // Submit form setelah konfirmasi
+    });
+
+    // File upload drag & drop
+    document.querySelectorAll('[type="file"]').forEach(input => {
+        const container = input.closest('div');
+        
+        container.addEventListener('click', () => {
+            input.click();
+        });
+        
+        container.addEventListener('dragover', (e) => {
             e.preventDefault();
-            document.getElementById('changeModal').classList.remove('hidden');
+            container.classList.add('border-primary', 'bg-blue-50');
         });
+        
+        container.addEventListener('dragleave', () => {
+            container.classList.remove('border-primary', 'bg-blue-50');
+        });
+        
+        container.addEventListener('drop', (e) => {
+            e.preventDefault();
+            container.classList.remove('border-primary', 'bg-blue-50');
+            const files = e.dataTransfer.files;
+            input.files = files;
+        });
+    });
+</script>
 
-        document.getElementById('cancelChange').addEventListener('click', function() {
-            document.getElementById('changeModal').classList.add('hidden');
-        });
-
-        // File upload functionality
-        document.querySelectorAll('[type="file"]').forEach(input => {
-            const container = input.closest('div');
-            
-            container.addEventListener('click', () => {
-                input.click();
-            });
-            
-            container.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                container.classList.add('border-primary', 'bg-blue-50');
-            });
-            
-            container.addEventListener('dragleave', () => {
-                container.classList.remove('border-primary', 'bg-blue-50');
-            });
-            
-            container.addEventListener('drop', (e) => {
-                e.preventDefault();
-                container.classList.remove('border-primary', 'bg-blue-50');
-                const files = e.dataTransfer.files;
-                input.files = files;
-            });
-        });
-    </script>
 </body>
 </html>

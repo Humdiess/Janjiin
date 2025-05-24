@@ -66,21 +66,30 @@ class EventController extends Controller
 
         // Simpan data ke database
         $event = Event::create([
+            // Informasi utama
             'title' => $request->title,
-            'image' => $imagePath,
+            'slug' => $slug,
             'description' => $request->description,
+            'image' => $imagePath,
             'author_id' => $request->author_id,
             'status' => $request->status,
+            'event_type' => $request->event_type,
+
+            // Lokasi
             'address' => $request->address,
             'city' => $request->city,
+
+            // Tanggal & waktu
             'event_date' => $request->event_date,
             'event_time' => $request->event_time,
-            'event_type' => $request->event_type,
-            'price' => $request->price,
+
+            // Peserta & keuangan
             'participant_limit' => $request->participant_limit,
             'participant_count' => 0,
+            'price' => $request->price,
             'total_revenue' => 0,
-            'slug' => $slug,
+
+            // Timestamp
             'created_at' => now(),
         ]);
 
